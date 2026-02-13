@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ffafbd;
+            --accent-red: #ff4b2b;
+            --soft-white: #fff5f6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-pink), #ffc3a0);
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            margin: 20px;
+        }
+
+        h1 { color: var(--accent-red); font-size: calc(1.5rem + 1vw); margin-bottom: 10px; }
+        h2 { color: #444; font-size: calc(1.2rem + 0.5vw); }
+        p { color: #555; line-height: 1.6; font-size: 1.1rem; }
+
+        /* Buttons Section */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            height: 80px; /* Space for the moving button */
+            position: relative;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            touch-action: manipulation; /* Improves mobile touch */
+        }
+
+        #yesBtn {
+            background-color: var(--accent-red);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+            z-index: 2;
+        }
+
+        #noBtn {
+            background-color: #bbbbbb;
+            color: white;
+            position: absolute;
+            transition: 0.1s;
+        }
+
+        /* Celebration Reveal */
+        #celebration {
+            display: none;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .couple-photo {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 20px;
+            border: 8px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            display: block;
+        }
+
+        .letter {
+            font-style: italic;
+            background: #fffafa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #ffe0e5;
+            text-align: left;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .gif-container {
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cat-gif {
+            width: 120px;
+            border-radius: 10px;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 480px) {
+            .container { padding: 1.5rem; }
+            button { padding: 10px 22px; font-size: 1rem; }
+            .cat-gif { width: 100px; }
+        }
+
+        #musicToggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop>
+        <source src="https://www.myinstants.com/media/sounds/arctic-monkeys-i-wanna-be-yours-official-audio.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggle" onclick="toggleMusic()">🎵</button>
+
+    <div class="container" id="mainCard">
+        <div id="questionArea">
+            <h1>Hey Kunjuss ❤️</h1>
+            <p>You make every day feel like a dream.</p>
+            <h2>Will you be my Valentine Aparna Vijay ?</h2>
+            
+            <div class="btn-container" id="btnWrapper">
+                <button id="yesBtn" onclick="showLove()">Yes!</button>
+                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="celebration">
+            <h1>I Knew You'd Say Yes! 💖</h1>
+            
+            <img src=""C:\Users\VISWANATHAN\Downloads\together.jpeg"" alt="Our Photo" class="couple-photo">
+            
+            <div class="letter">
+                <h3>My Dearest Aparna ,</h3>
+                <p>
+                    You are the most beautiful person I know, inside and out. 
+                    I want to be yours forever, just like the song says. Do you promise to be mine as I am yours and stay by me as I have promised.
+                </p>
+                <p>Love always, <br> <strong>[Your Name]</strong></p>
+            </div>
+
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" class="cat-gif">
+                <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgm');
+        music.volume = 0.4;
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); } 
+            else { music.pause(); }
+        }
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('btnWrapper');
+            
+            // Generate random positions within the visible screen area
+            // Subtracting button width/height to keep it on screen
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
+            
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.position = 'fixed'; // Use fixed so it moves relative to the screen
+        }
+
+        function showLove() {
+            music.play();
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+
+            // Heart Confetti
+            const end = Date.now() + (5 * 1000);
+            const colors = ['#ff4b2b', '#ffafbd', '#ffffff'];
+
+            (function frame() {
+              confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors
+              });
+              confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        }
+    </script>
+</body>
+</html>
